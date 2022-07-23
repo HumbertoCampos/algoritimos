@@ -12,13 +12,13 @@ class LinkedList:
 
     def insert(self, value):
         newNode = Node(value)
-        if(self.size == 0):
+        if self.size == 0:
             self.tail = newNode
             self.maxValue = value
         else:
             newNode.previous = self.tail
             self.tail = newNode
-            if (value > self.maxValue):
+            if value > self.maxValue:
                 self.maxValue = value
 
         self.size += 1
@@ -27,17 +27,16 @@ class LinkedList:
         return self.tail.value
 
     def getConsDays(self):
-        if (self.maxValue == self.tail.value):
+        if self.maxValue == self.tail.value:
             return self.size
         node = self.tail
         actualValue = node.value
         consDays = 0
-        count = 0
-        while (count < self.size):
-            if(node.value <= actualValue):
+        
+        for i in range(self.size):
+            if node.value <= actualValue:
                 consDays += 1
                 node = node.previous
-                count += 1
             else:
                 return consDays
         return consDays
@@ -45,21 +44,17 @@ class LinkedList:
 
 if __name__ == '__main__':
     number = int(input())
-    count = 0
     lista = LinkedList()
 
-    while(count < number):
+    for i in range(number):
         command = str(input(""))
         command = command.split(" ")
 
-        if(command[0] == "ATUALIZA"):
+        if command[0] == "ATUALIZA":
             lista.insert(int(command[1]))
 
-        elif(command[0] == "INFO"):
+        elif command[0] == "INFO":
             lastValue = lista.getLastValue()
             consecutiveDays = lista.getConsDays()
 
-            print("O ULTIMO VALOR FOI {value} E HOJE E UM BOM DIA PARA VENDER ACOES DOS ULTIMOS {day} DIAS".format(
-                value=lastValue, day=consecutiveDays))
-
-        count += 1
+            print(f'O ULTIMO VALOR FOI {lastValue} E HOJE E UM BOM DIA PARA VENDER ACOES DOS ULTIMOS {consecutiveDays} DIAS')

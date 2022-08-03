@@ -1,21 +1,22 @@
-# algoritimos
-Lista de algoritmos 
-def busca_binaria(vetor, comando, primeiro, ultimo):
-    soma = cont = 0
+def busca_binaria(vetor, comando):
+    soma = cont = primeiro = 0
+    ultimo = len(vetor) - 1
+    lista = vetor.copy()
 
-    for i in range(ultimo + 1):
-        if primeiro <= ultimo:
-            meio = (primeiro + ultimo) // 2
+    while primeiro <= ultimo:
+        meio = (primeiro + ultimo) // 2
 
-            if (vetor[meio][0] >= comando[1]) and (vetor[meio][0] <= comando[2]):
-                soma += int(vetor[meio][1])
-                cont += 1
+        if (int(lista[meio][0]) >= int(comando[1])) and (int(lista[meio][0]) <= int(comando[2])):
+            soma += int(lista[meio][1])
+            cont += 1
+            lista.pop(meio)
+            ultimo -= 1
+          
+        elif int(lista[meio][0]) < int(comando[1]):
+            primeiro = meio + 1
 
-            elif vetor[meio][0] < comando[1]:
-                return busca_binaria(vetor, comando, primeiro, meio - 1)
-
-            elif vetor[meio][0] > comando[2]:
-                return busca_binaria(vetor, comando, meio + 1, ultimo)
+        elif int(lista[meio][1]) > int(comando[2]):
+            ultimo = meio -1
 
     return cont, soma
 
@@ -32,5 +33,5 @@ for i in range(n):
         vetor.append(comando[1:])
 
     elif comando[0] == 'CALC':
-        res = busca_binaria(vetor, comando, primeiro = 0, ultimo = len(vetor) - 1)
+        res = busca_binaria(vetor, comando)
         print(*res)

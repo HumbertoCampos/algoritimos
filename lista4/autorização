@@ -1,0 +1,13 @@
+sub_lista = []
+r = []
+
+n = int(input())
+
+for _ in range(n):
+    cpf = input()
+
+    for c in cpf:
+        if c != ' ':
+            sub_lista.append(int(c) * 10)
+
+    [r.append(i) for i in sub_lista if not r.count(i)]

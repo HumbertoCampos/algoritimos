@@ -1,0 +1,79 @@
+def filho_left(index):
+    return 2 * index
+
+def filho_right(index):
+    return (2 * index) + 1
+
+def pai(index):
+    return index // 2
+
+def verifica_heap(lista, index):
+    left = filho_left(index)
+    right = filho_right(index)
+    tamanho_lista = len(lista)
+
+    if left <= tamanho_lista and lista[left] < lista[index]:
+        return False
+
+    if right <= tamanho_lista and lista[right] < lista[index]:
+        return False
+
+def mim_heapify(lista, index = 1):
+    left = filho_left(index)
+    right = filho_right(index)
+    tamanho_lista = len(lista)
+
+    if left < tamanho_lista and lista[left] < lista[index]:
+        menor = left
+    else:
+        menor = index
+
+    if right < tamanho_lista and lista[right] < lista[menor]:
+        menor = right
+
+    if menor != index:
+        lista[index], lista[menor] = lista[menor], lista[index]
+        mim_heapify(lista, menor)
+
+def build(lista):
+    x = len(lista) // 2
+    for i in range(x - 1):
+        res = verifica_heap(lista, i + 1)
+        if res is False:
+            return False
+
+    return True
+
+
+sorteado = []
+ordenado = []
+
+n = int(input())
+
+for _ in range(n):
+    lista = [None]
+    heap = input().split(',')
+    for i in heap:
+        lista.append(int(i))
+
+    res = build(lista)
+
+    if res is True:
+        while len(lista) > 1:
+            if res is True:
+                ordenado.append(lista.pop(1))
+                aux = lista.pop(-1)
+                lista.insert(1, aux)
+                mim_heapify(lista)
+                res = build(lista)
+            else:
+                break
+
+    if len(lista) == 1:
+        sorteado.append(ordenado.copy())
+
+    ordenado.clear()
+    lista.clear()
+
+for c in range(len(sorteado)):
+    print(sorteado[c])

@@ -1,13 +1,36 @@
+def tratamento_lista():
+    for c in cpf[0]:
+        lista.append(int(c) * 10)
+        if lista[-1] not in sub_lista:
+            sub_lista.append(lista[-1])
+
+    for i in range(len(sub_lista)):
+        sub_lista[i] *= lista.count(sub_lista[i])
+
+def permissao():
+    cont = 0
+    cond = 'NOT Permission'
+    while cont <= len(sub_lista) and cond != 'UP Permission':
+        for l in range(cont + 1, len(sub_lista)):
+            if int(cpf[1]) == sub_lista[cont] + sub_lista[l]:
+                cond = 'UP Permission'
+
+        cont += 1
+
+    return cond
+
+
+lista = []
 sub_lista = []
-r = []
 
 n = int(input())
 
 for _ in range(n):
-    cpf = input()
+    cpf = input().split(' ')
 
-    for c in cpf:
-        if c != ' ':
-            sub_lista.append(int(c) * 10)
+    tratamento_lista()
+    res = permissao()
 
-    [r.append(i) for i in sub_lista if not r.count(i)]
+    print(res)
+    lista.clear()
+    sub_lista.clear()

@@ -1,0 +1,26 @@
+def qs(lista, lista2):
+    if lista == []:
+        return []
+    else:
+        pivo = lista.pop(0)
+        pivo2 = lista2.pop(lista2.index(pivo))
+        return qs([x for x in lista if x < pivo2], [x for x in lista2 if x < pivo]) + [pivo] + qs([y for y in lista if y > pivo2], [y for y in lista2 if y > pivo])
+
+
+if __name__ == '__main__':
+    listaTupla = []
+    total = int(input())
+    n = 0
+    while n < total:
+        chaves = input()
+        cadeado = input()
+        listaTupla.append((chaves, cadeado))
+        n += 1
+
+    for x in listaTupla:
+
+        a = " ".join(qs(x[0].split(" "), x[1].split(" ")))
+        b = " ".join(qs(x[1].split(" "), x[0].split(" ")))
+        
+        print(a)
+        print(b)

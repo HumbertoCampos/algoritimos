@@ -1,0 +1,57 @@
+def hash_insert(T: list, chave: int) -> int:
+    i: int = 0
+    j: int = chave % len(T)
+
+    while i < len(T):
+        if T[j] == None:
+            T[j] = chave
+            return j
+        else:
+            i += 1
+            j = (j + 1) % len(T)
+
+    return -1
+
+
+def hash_search(T: list, chave: int) -> int:
+    i: int = 0
+    j: int = chave % len(T)
+
+    while i < len(T):
+        if T[j] == None:
+            return None
+        if T[j] == chave:
+            return j
+        else:
+            i += 1
+            j = (j + 1) % len(T)
+
+    return -1
+
+
+size_table = int(input())
+qtd_opera = int(input())
+
+table = [None] * size_table
+
+for _ in range(qtd_opera):
+    comando, number = input().split(' ')
+    number = int(number)
+
+    if comando == 'ADD':
+        key = hash_insert(table, number)
+        if key != -1:
+            print(f'E: {key}')
+
+    elif comando == 'CAP':
+        if table[number] == None:
+            print('D')
+        else:
+            print(f'A: {table[number]}')
+
+    elif comando == 'SCH':
+        key = hash_search(table, number)
+        if key == None:
+            print('NE')
+        else:
+            print(f'E: {key}')

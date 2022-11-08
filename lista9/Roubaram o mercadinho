@@ -1,0 +1,25 @@
+def valor_max(valores, qtd):
+    selecionado = [[0 for i in range(2)] for j in range(qtd)]
+
+    if (qtd == 1):
+        return valores[0]
+
+    selecionado[0][0] = 0
+    selecionado[0][1] = valores[0]
+
+    for i in range(1, qtd):
+        selecionado[i][1] = selecionado[i - 1][0] + valores[i]
+        selecionado[i][0] = max(selecionado[i - 1][1], selecionado[i - 1][0])
+
+    return max(selecionado[qtd - 1][0], selecionado[qtd - 1][1])
+
+
+if __name__ == '__main__':
+    valores = []
+
+    qtd_itens = int(input())
+    valor = input().split()
+
+    valores = [int(i) for i in valor]
+
+    print(f"{valor_max(valores, qtd_itens)} reais da para roubar do mercadinho!")
